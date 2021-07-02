@@ -1,0 +1,4 @@
+https://en.wikipedia.org/wiki/Merge_sort#Algorithm
+https://www.geeksforgeeks.org/merge-sort/
+https://gist.github.com/mycodeschool/9678029
+https://vinayakgarg.wordpress.com/2012/11/08/merge-sort-program-in-c/
