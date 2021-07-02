@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define SWAP(a,b)((a)^=(b),(b)^=(a),(a)^=(b))
 
-unsigned list[] = {6, 7, 3, 5, 8, 9, 0, 2, 1, 4};
 unsigned char swapped = 1;
 
 void bubbleSort(unsigned *array, size_t size) 
@@ -19,13 +19,26 @@ void bubbleSort(unsigned *array, size_t size)
     }
 }
 
+void printArray(int *arr, int size)
+{
+	for (int i = 0; i < size; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+}
+
 int main(void) 
 {
-    bubbleSort(list, 10);
-    
-    for (int i=0; i < 10; i++) {
-        printf("list[%d] = %d\n", i, list[i]);
-    }
+    unsigned list[] = {6, 7, 3, 5, 8, 9, 0, 2, 1, 4, 1, 6, 4, 3, 3, 7, 100, 8, 9, 9, 0, 3, 4, 6, 7, 8, 1, 99};
+    size_t list_len = sizeof(list)/sizeof(list[0]);
+    printf("BubbleSort Algo!\n");
+
+    printf("Before:\n");
+	printArray(list, list_len);
+
+	bubbleSort(list, list_len);
+	
+    printf("After:\n");
+	printArray(list, list_len);
 
     return 0;
 }

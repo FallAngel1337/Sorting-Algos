@@ -1,51 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void merge(int *arr, int m, int size) {
-    int i,j,k=0;
-    int A1[m],A2[size-m];
-    
-    for (i=0; i < m; i++) A1[i] = arr[k++];
-    for (i=m; i < size; i++) A2[i-m] = arr[k++];
+void merge(int *arr, int s, int m, int e) 
+{
+    int tmp[e-s];
+    int i=s,j=m+1,k=0;
 
-    i=0;j=0;k=0;
-    while (i < m && j < (size-m)) {
-        if (A1[i] <= A2[j]) arr[k++] = A1[i++];
-        else arr[k++] = A2[j++];
+    while (i <= m && j <= e)
+    {
+        if (arr[i] <= arr[j]) tmp[k++] = arr[i++];
+        else tmp[k++] = arr[j++];
     }
 
-    while (i < m) arr[k++] = A1[i++];
-    while (j < (size-m)) arr[k++] = A2[j++];
+    while (i <= m) tmp[k++] = arr[i++];
+    while (j <= e) tmp[k++] = arr[j++];
+
+    k--;
+    while (k >= 0) {
+        arr[s + k] = tmp[k];
+        k--;
+    }
 }
 
-void mergeSort(int *arr, size_t size) {
-    if (size < 2) return;
-
-    int m = size/2;
-
-    mergeSort(arr, m);
-    mergeSort(arr, size-m);
-    merge(arr, m, size);
-}
-
-void printArray(int A[], int size)
+void mergeSort(int *arr, int __start, int __end)
 {
-	int i;
-	for (i = 0; i < size; i++)
-		printf("%d ", A[i]);
+    if (__start < __end) {
+        int mid = (__start + __end)/2;
+        mergeSort(arr, __start, mid);
+        mergeSort(arr, mid+1, __end);
+        merge(arr, __start, mid, __end);
+    }
+}
+
+
+void printArray(int *arr, int size)
+{
+	for (int i = 0; i < size; i++)
+		printf("%d ", arr[i]);
 	printf("\n");
 }
 
 int main(void) {
-	int arr[] = { 12, 11, 13, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7 };
-	int arr_size = sizeof(arr) / sizeof(arr[0]);
+    int list[] = {6, 7, 3, 5, 8, 9, 0, 2, 1, 4, 1, 6, 4, 3, 3, 7, 100, 8, 9, 9, 0, 3, 4, 6, 7, 8, 1, 99};
+    size_t list_len = sizeof(list)/sizeof(list[0]);
+    printf("MergeSort Algo!\n");
 
-	printf("Given array is \n");
-	printArray(arr, arr_size);
+	printf("Before:\n");
+	printArray(list, list_len);
 
-	mergeSort(arr, arr_size);
-
-	printf("\nSorted array is \n");
-	printArray(arr, arr_size);
+	mergeSort(list, 0, list_len-1);
+	
+    printf("After:\n");
+	printArray(list, list_len);
 	return 0;
 }
